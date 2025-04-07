@@ -24,6 +24,14 @@ object chuck_norris {
   method puede_llamar(){
     return puede_llamar
   }
+
+  method puede_enviar_brooklyn() {
+    return (paquete.esta_pago() and self.peso() < 1000)
+  }
+
+  method puede_enviar_matrix(){
+    return (paquete.esta_pago() and self.puede_llamar())
+  }
 }
 
 object neo {
@@ -42,6 +50,14 @@ object neo {
   method cargar_credito(_credito){
     credito = _credito
   }
+
+  method puede_enviar_brooklyn() {
+    return (paquete.esta_pago() and self.peso() < 1000)
+  }
+
+  method puede_enviar_matrix(){
+    return (paquete.esta_pago() and self.puede_llamar())
+  }
 }
 
 object lincoln_hawk {
@@ -50,22 +66,22 @@ object lincoln_hawk {
 
   const puede_llamar = false
 
-  var peso_vehiculo = 10
+  var vehiculo = bicicleta
 
   method peso(){
-    return hawk_peso + peso_vehiculo
+    return (hawk_peso + self.peso_vehiculo())
   }
 
-  method bicicleta(){
-    peso_vehiculo = 10
+  method cambiar_vehiculo(_vehiculo){
+    vehiculo = _vehiculo
   }
 
-  method camion(){
-    peso_vehiculo = 500
+  method vehiculo(){
+    return vehiculo
   }
 
-  method camion_acoplado(){
-    peso_vehiculo = 1000
+  method peso_vehiculo() {
+    return vehiculo.peso()
   }
 
   method puede_llamar(){
@@ -75,26 +91,38 @@ object lincoln_hawk {
   method hawk_peso(_hawk_peso) {
     hawk_peso = _hawk_peso
   }
-}
 
-object brooklyn{
+  method puede_enviar_brooklyn() {
+    return (paquete.esta_pago() and self.peso() < 1000)
+  }
 
-  method puede_enviar (_mensajero){
-    return if (paquete.esta_pago() == true and _mensajero.peso() < 1000){
-    true
-    } else {
-    false
-    }
+  method puede_enviar_matrix(){
+    return (paquete.esta_pago() and self.puede_llamar())
   }
 }
 
-object matrix{
+object bicicleta{
 
-  method puede_enviar (_mensajero){
-    return if (paquete.esta_pago() == true and _mensajero.puede_llamar() == true){
-    true
-    } else {
-    false
-    }
+  const peso = 10
+
+  method peso() {
+    return peso
+  }
+}
+
+object camion{
+
+  var peso = 500
+
+  method camion_acoplado(){
+    peso = 1000
+  }
+
+  method camion_desacoplado() {
+    peso = 500
+  }
+
+  method peso() {
+    return peso
   }
 }
